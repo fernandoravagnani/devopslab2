@@ -1,28 +1,33 @@
-# Linguagem Utilizada para Desenvolver a Aplicação.
 language: python
 
-# Versão que a aplicação suporta.
 python:
-  - "3.7.9"
+- 3.7.9
 
-#Build Environments
 os: linux
+
 dist: xenial
 
-# Instalação de Módulos que são necessários para a Aplicação.
 install:
-  - pip install flask
+- pip install flask
 
-# Defini o script de Teste que deve rodar toda vez que o código for alterado.
 script:
-  - python -m unittest -v test
+- python -m unittest -v test
 
-# Definir o Deploy no Heroku
+before_install:
+- openssl aes-256-cbc -K $encrypted_2a8883044617_key -iv $encrypted_2a8883044617_iv
+  -in lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json.enc -out ../lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json
+  -d
+
 deploy:
-  provider: heroku
+- provider: heroku
   strategy: api
-  api_key: $HEROKU_API_KEY
-  edge: true 
+  api_key: "$HEROKU_API_KEY"
+  edge: true
   app: devopslab2-fernandoravagnani
   on:
-      branch: main
+    branch: main
+- provider: gae
+  keyfile: "../lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json"
+  project: lab-devopscloud-fer-ravagnani
+  on:
+    branch: main
