@@ -51,47 +51,11 @@ jobs:
       # Definir o Deploy no Google Cloud
       deploy:
         provider: gae
-        keyfile: ../lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json
-        project: 
+        keyfile: "../lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json"
+        project: lab-devopscloud-fer-ravagnani
         on:
           branch: main
 
     - stage: PROD TEST
       script:
         - curl https://lab-devopscloud-fer-ravagnani.uc.r.appspot.com/ | grep Hello || travis_terminate 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-deploy:
-- provider: heroku
-  strategy: api
-  api_key: "$HEROKU_API_KEY"
-  edge: true
-  app: devopslab2-fernandoravagnani
-  on:
-    branch: main
-- provider: gae
-  keyfile: "../lab-devopscloud-fer-ravagnani-4d310d8fb8dd.json"
-  project: lab-devopscloud-fer-ravagnani
-  on:
-    branch: main
